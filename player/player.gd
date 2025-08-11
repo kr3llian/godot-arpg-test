@@ -5,7 +5,12 @@ extends CharacterBody2D
 
 func handleInput():
 	var moveDirection = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	velocity = moveDirection*speed
+	
+	var currentSpeed = speed
+	if Input.is_key_pressed(KEY_SHIFT):
+		currentSpeed += 30
+	
+	velocity = moveDirection * currentSpeed
 
 func updateAnimation():
 	if velocity.length() == 0 and animations.is_playing():
@@ -17,7 +22,7 @@ func updateAnimation():
 		elif velocity.y < 0: direction = "Up"
 		
 		animations.play("walk" + direction)
-	# print(velocity) # for debugging
+	print(velocity) # for debugging
 
 func _physics_process(delta: float) -> void:
 	handleInput()

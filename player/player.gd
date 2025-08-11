@@ -22,7 +22,7 @@ func updateAnimation():
 		elif velocity.y < 0: direction = "Up"
 		
 		animations.play("walk" + direction)
-	print(velocity) # for debugging
+	# print(velocity) # for debugging
 
 func _physics_process(delta: float) -> void:
 	handleInput()

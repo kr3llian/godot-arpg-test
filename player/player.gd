@@ -8,7 +8,7 @@ func handleInput():
 	velocity = moveDirection*speed
 
 func updateAnimation():
-	if velocity.length() == 0:
+	if velocity.length() == 0 and animations.is_playing():
 		animations.stop()
 	else:
 		var direction = "Down"

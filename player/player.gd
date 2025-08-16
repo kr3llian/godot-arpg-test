@@ -10,7 +10,7 @@ func handleInput():
 	if Input.is_key_pressed(KEY_SHIFT):
 		currentSpeed += 30
 	
-	velocity = moveDirection * currentSpeed
+	velocity = moveDirection.normalized() * currentSpeed
 
 func updateAnimation():
 	if velocity.length() == 0 and animations.is_playing():
@@ -21,10 +21,15 @@ func updateAnimation():
 		elif velocity.x > 0: direction = "Right"
 		elif velocity.y < 0: direction = "Up"
 		
-		animations.play("walk" + direction)
+		animations.play("move" + direction)
 	# print(velocity) # for debugging
 
 func _physics_process(delta: float) -> void:
 	handleInput()
 	move_and_slide()
 	updateAnimation()
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if area.name == "hitbox":
+		print_debug(area.get_parent().name)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=4 uid="uid://bdogp5s6elxc"]
+[gd_scene load_steps=16 format=4 uid="uid://bdogp5s6elxc"]
 
 [ext_resource type="PackedScene" uid="uid://c8gr3aaund1ef" path="res://player/player.tscn" id="1_nnsk1"]
 [ext_resource type="Texture2D" uid="uid://ck5robi77q5tm" path="res://art/TilesetFloor.png" id="2_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://cai68mkvpac8n" path="res://art/TilesetNature.png" id="3_4wyf3"]
 [ext_resource type="Texture2D" uid="uid://bdp5e80eg21vn" path="res://art/animated flower.png" id="3_k0juu"]
 [ext_resource type="Script" uid="uid://ceh82jdkoni6x" path="res://camera/follow_cam.gd" id="5_71j4m"]
+[ext_resource type="PackedScene" uid="uid://c3s2wwi56o75g" path="res://enemies/slime.tscn" id="6_qfnet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4wyf3"]
 texture = ExtResource("2_rwgxs")
@@ -1602,6 +1603,8 @@ texture = ExtResource("2_rwgxs")
 19:25/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_k0juu"]
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "sand"
 terrain_set_0/terrain_0/color = Color(0.209992, 0.39969, 0.602777, 1)
@@ -1995,7 +1998,8 @@ texture = ExtResource("3_4wyf3")
 4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7.82385, -13.3095, -5.84541, -18.1657, 6.92456, -20.8636, 7.46414, -32.7343, 13.5793, -37.5905, 30.8458, -37.5905, 37.5005, -33.9933, 38.5797, -20.1442, 49.9108, -18.3456, 53.8677, -15.288, 52.7885, 6.47491, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_qfnet"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_71j4m")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k0juu"]
@@ -2401,6 +2405,7 @@ texture = ExtResource("3_k0juu")
 
 [sub_resource type="TileSet" id="TileSet_71j4m"]
 physics_layer_0/collision_layer = 0
+physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_k0juu")
 sources/4 = SubResource("TileSetAtlasSource_qfnet")
 
@@ -2792,7 +2797,8 @@ texture = ExtResource("3_4wyf3")
 6:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(0.0899277, 4.22668, 4.40654, -0.809364, 11.7807, -0.629505, 15.9175, 2.96767, 12.1405, 6.92456, 8, 5.12597, 1.5288, 8, 2.60795, 4.76626)
 
 [sub_resource type="TileSet" id="TileSet_4mrxx"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_i7141")
 
 [node name="World" type="Node2D"]
@@ -2817,6 +2823,27 @@ z_index = 1
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAAFAAkAAAAGAAgAAAAKAA4AAAAGAAgAAAAOAA0AAAAGAAgAAAAYAAsAAAAGAAgAAAAXAAUAAAAGAAgAAAARAAQAAAAGAAgAAAAMAAoAAAAGAAgAAAASAAoAAAAGAAgAAAAKAAUAAAAGAAgAAAA=")
 tile_set = SubResource("TileSet_4mrxx")
+
+[node name="slime" parent="." node_paths=PackedStringArray("endPoint") instance=ExtResource("6_qfnet")]
+position = Vector2(160, 144)
+endPoint = NodePath("Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="slime"]
+position = Vector2(16, 32)
+
+[node name="slime2" parent="." node_paths=PackedStringArray("endPoint") instance=ExtResource("6_qfnet")]
+position = Vector2(352, 152)
+endPoint = NodePath("Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="slime2"]
+position = Vector2(-24, 48)
+
+[node name="slime3" parent="." node_paths=PackedStringArray("endPoint") instance=ExtResource("6_qfnet")]
+position = Vector2(224, 96)
+endPoint = NodePath("Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="slime3"]
+position = Vector2(80, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_nnsk1")]
 position = Vector2(120, 67)

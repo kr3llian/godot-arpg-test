@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8gr3aaund1ef"]
+[gd_scene load_steps=11 format=3 uid="uid://c8gr3aaund1ef"]
 
 [ext_resource type="Texture2D" uid="uid://b236qro3p4xyw" path="res://art/player_sprites.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://suq56nokomo0" path="res://player/player.gd" id="1_rkbax"]
@@ -19,7 +19,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_rkbax"]
-resource_name = "walkDown"
+resource_name = "moveDown"
 length = 0.8
 loop_mode = 1
 step = 0.2
@@ -37,7 +37,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_qjkh3"]
-resource_name = "walkLeft"
+resource_name = "moveLeft"
 length = 0.8
 loop_mode = 1
 step = 0.2
@@ -55,7 +55,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_g6k8r"]
-resource_name = "walkRight"
+resource_name = "moveRight"
 length = 0.8
 loop_mode = 1
 step = 0.2
@@ -73,7 +73,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_yw30f"]
-resource_name = "walkUp"
+resource_name = "moveUp"
 length = 0.8
 loop_mode = 1
 step = 0.2
@@ -93,14 +93,17 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_boad6"]
 _data = {
 &"RESET": SubResource("Animation_g1dw6"),
-&"walkDown": SubResource("Animation_rkbax"),
-&"walkLeft": SubResource("Animation_qjkh3"),
-&"walkRight": SubResource("Animation_g6k8r"),
-&"walkUp": SubResource("Animation_yw30f")
+&"moveDown": SubResource("Animation_rkbax"),
+&"moveLeft": SubResource("Animation_qjkh3"),
+&"moveRight": SubResource("Animation_g6k8r"),
+&"moveUp": SubResource("Animation_yw30f")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkbax"]
 size = Vector2(14, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1dw6"]
+size = Vector2(12, 11)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -121,3 +124,12 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_rkbax")
+
+[node name="hitbox" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_g1dw6")
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
